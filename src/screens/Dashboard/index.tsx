@@ -1,4 +1,4 @@
-import React from "react"; 
+import React from "react";
 import { HighlightCard } from "../../components/HighlightCard";
 import { TransactionCard, ITransactionCardProps } from "../../components/TransactionCard";
 
@@ -15,11 +15,12 @@ import {
     HighlightCards,
     Transactions,
     Title,
-    TransactionList
+    TransactionList,
+    LogoutButton
 
 } from "./styles";
 
-export interface IDataListProps extends ITransactionCardProps{
+export interface IDataListProps extends ITransactionCardProps {
     id: string;
 }
 
@@ -74,7 +75,9 @@ export function Dashboard() {
                             <UserName>Luciano</UserName>
                         </User>
                     </UserInfo>
-                    <Icon name="power" />
+                    <LogoutButton onPress={() => { }}>
+                        <Icon name="power" />
+                    </LogoutButton>
                 </UserWrapper>
             </Header>
 
