@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Platform } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
-import styled, { useTheme } from "styled-components";
+import  { useTheme } from "styled-components";
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
