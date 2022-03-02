@@ -72,7 +72,6 @@ export function Resume({
         const dataKey = `@gofinances:transactions_user:${user?.id}`;
         const response = await AsyncStorage.getItem(dataKey);
         let responseFormatted = response ? JSON.parse(response) : null;
-        // responseFormatted = [...responseFormatted, ...responseFormatted, ...responseFormatted, ...responseFormatted, ...responseFormatted, ...responseFormatted,...responseFormatted, ...responseFormatted, ...responseFormatted, ...responseFormatted, ...responseFormatted, ...responseFormatted,...responseFormatted, ...responseFormatted, ...responseFormatted, ...responseFormatted, ...responseFormatted, ...responseFormatted,...responseFormatted, ...responseFormatted, ...responseFormatted, ...responseFormatted, ...responseFormatted, ...responseFormatted,]
         
         if (responseFormatted) {
             const registers = responseFormatted
