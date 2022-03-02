@@ -1,4 +1,4 @@
-import React, { useCallback,  useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { ActivityIndicator } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -71,8 +71,9 @@ export function Resume({
         setIsLoading(true);
         const dataKey = `@gofinances:transactions_user:${user?.id}`;
         const response = await AsyncStorage.getItem(dataKey);
-        const responseFormatted = response ? JSON.parse(response) : null;
-
+        let responseFormatted = response ? JSON.parse(response) : null;
+        // responseFormatted = [...responseFormatted, ...responseFormatted, ...responseFormatted, ...responseFormatted, ...responseFormatted, ...responseFormatted,...responseFormatted, ...responseFormatted, ...responseFormatted, ...responseFormatted, ...responseFormatted, ...responseFormatted,...responseFormatted, ...responseFormatted, ...responseFormatted, ...responseFormatted, ...responseFormatted, ...responseFormatted,...responseFormatted, ...responseFormatted, ...responseFormatted, ...responseFormatted, ...responseFormatted, ...responseFormatted,]
+        
         if (responseFormatted) {
             const registers = responseFormatted
                 .filter((expensive: ITransactionData) =>
@@ -145,68 +146,68 @@ export function Resume({
                 <Title>Resumo por categoria </Title>
 
             </Header>
-            {isLoading ?
-                <LoadContainer>
-                    <ActivityIndicator
-                        color={theme.colors.primary}
-                        size='large'
-                    />
-                </LoadContainer>
-                :
-                (
-                    <Content
-                        showsVerticalScrollIndicator={false}
-                        contentContainerStyle={{
-                            paddingHorizontal: 24,
-                            paddingBottom: useBottomTabBarHeight(),
+
+            <Content
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{
+                    paddingHorizontal: 24,
+                    paddingBottom: useBottomTabBarHeight(),
+                }}
+
+            >
+                <MonthSelect>
+                    <MonthSelectButton onPress={() => handleChangeData('prev')}>
+                        <MonthSelectIcon name="chevron-left" />
+                    </MonthSelectButton>
+
+                    <Month>{format(selectedDate, 'MMMM , yyyy', { locale: ptBR })}</Month>
+
+                    <MonthSelectButton onPress={() => handleChangeData('next')}>
+                        <MonthSelectIcon name="chevron-right" />
+                    </MonthSelectButton>
+                </MonthSelect>
+
+                <ChartContainer>
+                    <VictoryPie
+                        data={totalByCategories.length > 0 ? totalByCategories : [{ total: "0", percent: '0%' }]}
+                        colorScale={totalByCategories.length > 0 ? totalByCategories.map(category => category.color) : ['gray']}
+                        style={{
+                            labels: {
+                                fontSize: RFValue(18),
+                                fontWeight: 'bold',
+                                fill: theme.colors.shape
+                            },
+
                         }}
+                        cornerRadius={({ datum }) => 5}
+                        labelRadius={50}
+                        x="percent"
+                        y="total"
+                    />
+                </ChartContainer>
 
+                <ContainerFilter onPress={handleFilter}>
+                    <TextButton
+                        type={filter.current}
                     >
-                        <MonthSelect>
-                            <MonthSelectButton onPress={() => handleChangeData('prev')}>
-                                <MonthSelectIcon name="chevron-left" />
-                            </MonthSelectButton>
+                        {translatedText()}
+                    </TextButton>
+                    <IconFilter
+                        name={icon[filter.current]}
+                        type={filter.current}
+                    ></IconFilter>
+                </ContainerFilter>
 
-                            <Month>{format(selectedDate, 'MMMM , yyyy', { locale: ptBR })}</Month>
-
-                            <MonthSelectButton onPress={() => handleChangeData('next')}>
-                                <MonthSelectIcon name="chevron-right" />
-                            </MonthSelectButton>
-                        </MonthSelect>
-
-                        <ChartContainer>
-                            <VictoryPie
-                                data={totalByCategories.length > 0 ? totalByCategories : [{ total: "0", percent: '0%' }]}
-                                colorScale={totalByCategories.length > 0 ? totalByCategories.map(category => category.color) : ['gray']}
-                                style={{
-                                    labels: {
-                                        fontSize: RFValue(18),
-                                        fontWeight: 'bold',
-                                        fill: theme.colors.shape
-                                    },
-
-                                }}
-                                labelRadius={50}
-                                x="percent"
-                                y="total"
+                {
+                    isLoading ?
+                        <LoadContainer>
+                            <ActivityIndicator
+                                color={theme.colors.primary}
+                                size='large'
                             />
-                        </ChartContainer>
-                        {
-
-                        }
-                        <ContainerFilter onPress={handleFilter}>
-                            <TextButton
-                                type={filter.current}
-                            >
-                                {translatedText()}
-                            </TextButton>
-                            <IconFilter
-                                name={icon[filter.current]}
-                                type={filter.current}
-                            ></IconFilter>
-                        </ContainerFilter>
-
-                        {
+                        </LoadContainer>
+                        :
+                        (
                             totalByCategories.map((item) =>
                                 <HistoryCard key={item.key}
                                     title={item?.name}
@@ -214,10 +215,10 @@ export function Resume({
                                     color={item?.color}
                                 />
                             )
-                        }
+                        )}
 
-                    </Content>
-                )}
+            </Content>
+
         </Container>
     )
 }
