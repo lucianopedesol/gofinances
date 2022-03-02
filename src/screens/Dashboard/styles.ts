@@ -5,8 +5,9 @@ import { FlatList, FlatListProps } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 import { getBottomSpace, getStatusBarHeight } from 'react-native-iphone-x-helper';
-import { IDataListProps } from ".";
+ 
 import { BorderlessButton, GestureHandlerRootView } from "react-native-gesture-handler";
+import { ITransactionCardProps } from "../../components/TransactionCard";
 
 
 export const Container = styled(GestureHandlerRootView)`
@@ -101,7 +102,7 @@ export const Title = styled.Text`
 
 
 export const TransactionList = styled(
-    FlatList as new (props: FlatListProps<IDataListProps>) => FlatList<IDataListProps>
+    FlatList as new (props: FlatListProps<ITransactionCardProps>) => FlatList<ITransactionCardProps>
 ).attrs({
     showsVerticalScrollIndicator: false,
     contentContainerStyle: {

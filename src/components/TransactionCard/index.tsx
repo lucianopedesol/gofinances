@@ -3,7 +3,9 @@ import { categories } from "../../utils/categories";
 
 import {
     Container,
+    CardHeader,
     Title,
+    ButtonDelete,
     Amount,
     Footer,
     Category,
@@ -14,6 +16,7 @@ import {
 
 
 export interface ITransactionCardProps {
+    id: string;
     type: 'positive' | 'negative';
     name: string;
     amount: string;
@@ -21,19 +24,30 @@ export interface ITransactionCardProps {
     date: string;
 }
 
+
+
 export interface IProps {
     data: ITransactionCardProps;
+    handleConfirmDelete(data: ITransactionCardProps): void;
 }
 export function TransactionCard({
-    data
+    data,
+    handleConfirmDelete
 }: IProps) {
     const [category] = categories.filter(
         item => item.key === data.category
     );
 
+
     return (
         <Container>
-            <Title>{data.name}</Title>
+            <CardHeader>
+                <Title>{data.name}</Title>
+                <ButtonDelete onPress={() => handleConfirmDelete(data)} >
+                    <Icon name='delete' />
+                </ButtonDelete>
+            </CardHeader>
+
             <Amount type={data.type}>
                 {data.type === 'negative' && '- '}
                 {data.amount}

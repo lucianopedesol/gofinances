@@ -14,6 +14,15 @@ export const Container = styled.View`
     padding: 17px 24px; 
     margin-bottom: 16px;
 `;
+export const CardHeader = styled.View`
+    flex-direction: row;
+    justify-content: space-between
+`;
+
+export const ButtonDelete = styled.TouchableOpacity`
+    flex-direction: row;
+    justify-content: space-between
+`;
 
 export const Title = styled.Text`
     font-family: ${({ theme }) => theme.fonts.regular};
