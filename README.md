@@ -14,11 +14,8 @@
 - Layout com Styled Components;
 - Navegação;
 - Formulários; 
-  
-##  🚀 Em desenvolvimento:
-- Conexão com API Nativas;
 - Armazenamento Local com Async Storage;
 - Contexto e Autenticação;
 - Login Social;
-
+ 
  
